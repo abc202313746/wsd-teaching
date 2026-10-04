@@ -1,0 +1,17 @@
+$kind: http-request
+url: "{{baseUrl}}/api/v1/items"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": " ",
+      "price": 100
+    }
+scripts:
+  - type: afterResponse
+    code: pm.test("HTTP 400", function () { pm.response.to.have.status(400); });
+    language: text/javascript
+order: 1000

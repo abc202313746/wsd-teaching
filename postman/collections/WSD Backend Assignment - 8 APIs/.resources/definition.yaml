@@ -1,0 +1,16 @@
+$kind: collection
+description: 서버를 실행한 뒤 0 - Setup, 1 - Eight APIs, 2 - Error responses 순서로 요청을 보낸다.
+variables:
+  baseUrl: http://localhost:8080
+  itemId: ""
+  headerItemId: ""
+  fixtureId: ""
+scripts:
+  - type: http:afterResponse
+    code: |-
+      pm.test("Standard response envelope", function () {
+          const body = pm.response.json();
+          pm.expect(body).to.have.keys("status", "data");
+          pm.expect(body.status).to.eql(pm.response.code < 400 ? "success" : "error");
+      });
+    language: text/javascript

@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{baseUrl}}/api/v1/items"
+method: GET
+headers:
+  X-Demo-Error: "503"
+scripts:
+  - type: afterResponse
+    code: pm.test("HTTP 503", function () { pm.response.to.have.status(503); });
+    language: text/javascript
+order: 4000

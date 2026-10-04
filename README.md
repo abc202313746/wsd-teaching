@@ -90,30 +90,111 @@ IntelliJ에서 프로젝트 SDK와 Gradle JVM을 JDK 25로 설정한 뒤 `WsdTea
 
 `GlobalExceptionHandler`에서 입력 오류, 없는 상품, 서버 오류 등을 공통 JSON 응답으로 처리한다. 상품 저장과 입력 검사는 `ItemService`에서 담당한다.
 
-## 테스트
+## 테스트 방법
 
 ```powershell
-.\gradlew.bat test bootJar
+.\gradlew.bat test --rerun-tasks
 ```
 
-자동 테스트 7개를 통과했다. API 동작, 입력 검사, 일괄 삭제 실패 시 데이터 보존, 오류 응답과 로그를 확인했다.
+API 동작, 입력 검사, 일괄 삭제 실패 시 데이터 보존, 오류 응답과 로그를 검사한다. 자동 테스트 7개를 실행했고 모두 통과했다. 실패와 건너뛴 테스트는 각각 0개다. 실행 결과는 `build/reports/tests/test/index.html`에서 확인할 수 있다.
 
-Postman에서는 [요청 모음](docs/wsd-assignment.postman_collection.json)을 Import하고 `baseUrl`을 실행 중인 서버 주소로 설정한다. 준비 → API 8개 → 오류 응답 순서로 실행하면 된다. 등록된 상품의 ID는 요청 스크립트가 변수에 저장한다.
+## Postman 확인
 
-실제 HTTP 요청 22개를 확인한 결과와 캡처는 다음 파일에 정리했다.
+[요청 모음 JSON](docs/wsd-assignment.postman_collection.json)을 Postman의 Import에서 가져온다. 이미 `WSD Backend Assignment - 8 APIs` 컬렉션이 있다면 그대로 사용한다. `baseUrl`의 기본값은 `http://localhost:8080`이다.
 
-| 파일 | 내용 |
-|---|---|
-| [apis.png](docs/verification/apis.png) | API 8개 실행 결과 |
-| [response-codes.png](docs/verification/response-codes.png) | 200, 201, 400, 404, 500, 503 응답 |
-| [middleware.png](docs/verification/middleware.png) | 요청 시작과 완료 로그 |
-| [results.json](docs/verification/results.json) | 실제 요청과 응답 데이터 |
-| [server.log](docs/verification/server.log) | 서버 로그 원본 |
+`0 - Setup` → `1 - Eight APIs` → `2 - Error responses` 순서로 요청을 보낸다. 등록된 상품의 ID는 요청 스크립트가 변수에 저장한다. 서버를 다시 실행했다면 준비와 등록 요청부터 다시 보내야 한다.
 
-캡처는 실제 요청 결과를 정리한 HTML 보고서의 브라우저 화면이다. 검증과 캡처를 다시 생성하려면 JDK 25의 `JAVA_HOME`을 설정하고 위의 빌드 명령 실행 후 다음 명령을 사용한다.
+오류 요청에서 400과 404를 확인한다. 500과 503은 요청의 Headers에서 `X-Demo-Error` 값을 확인한 뒤 보낸다. 일반 요청에서는 이 헤더를 제거한다.
+
+캡처에는 요청 메서드, URL, 응답 상태 코드, JSON 본문이 보이도록 한다. 요청 로그는 IntelliJ의 실행 콘솔에서 확인한다.
+
+Postman에서 API 8개를 호출하고 200, 201, 400, 404, 500, 503 응답을 확인했다. 실행 콘솔에서도 각 요청의 시작과 완료, 응답 상태 코드와 처리 시간 로그를 확인했다.
+
+## 추가 HTTP 검증
+
+Postman 확인 외에 검증 스크립트를 사용할 수도 있다. JDK 25의 `JAVA_HOME`을 설정한 뒤 실행한다.
 
 ```powershell
+.\gradlew.bat bootJar
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\verify-api.ps1 -JavaExe "$env:JAVA_HOME\bin\java.exe" -CaptureScreenshots
 ```
 
-검증 스크립트는 18082 포트에서 서버를 잠시 실행하고 종료한다. 화면 캡처에는 설치된 Edge 또는 Chrome을 사용한다.
+스크립트는 18082 포트에서 서버를 잠시 실행하고 종료한다. 실행 결과는 `docs/verification/results.json`에 저장되며, 요청 수와 통과 여부는 해당 실행의 출력과 결과 파일에서 확인한다. 화면 캡처에는 설치된 Edge 또는 Chrome을 사용한다.
+
+## 실행 및 테스트 화면
+
+사진을 클릭하면 원본 크기로 볼 수 있다.
+
+### 서버 실행
+
+<a href="docs/screenshots/server.png"><img src="docs/screenshots/server.png" alt="서버 실행 및 8080 포트 확인" width="800"></a>
+
+### API 요청
+
+<details>
+<summary>API 8개 실행 결과</summary>
+
+**GET 1 - 상품 목록, 검색, 페이지 조회 (200 OK)**
+
+<a href="docs/screenshots/get-list.png"><img src="docs/screenshots/get-list.png" alt="GET 1 - 상품 목록 조회" width="800"></a>
+
+**GET 2 - 상품 상세 조회 (200 OK)**
+
+<a href="docs/screenshots/get-detail.png"><img src="docs/screenshots/get-detail.png" alt="GET 2 - 상품 상세 조회" width="800"></a>
+
+**POST 1 - 상품 등록 (201 Created)**
+
+<a href="docs/screenshots/post-create.png"><img src="docs/screenshots/post-create.png" alt="POST 1 - 상품 등록" width="800"></a>
+
+**POST 2 - 헤더와 함께 상품 등록 (201 Created)**
+
+<a href="docs/screenshots/post-header.png"><img src="docs/screenshots/post-header.png" alt="POST 2 - 헤더와 함께 상품 등록" width="800"></a>
+
+**PUT 1 - 상품 이름과 가격 수정 (200 OK)**
+
+<a href="docs/screenshots/put-item.png"><img src="docs/screenshots/put-item.png" alt="PUT 1 - 상품 전체 수정" width="800"></a>
+
+**PUT 2 - 상품 가격 수정 (200 OK)**
+
+<a href="docs/screenshots/put-price.png"><img src="docs/screenshots/put-price.png" alt="PUT 2 - 상품 가격 수정" width="800"></a>
+
+**DELETE 1 - 상품 하나 삭제 (200 OK)**
+
+<a href="docs/screenshots/delete-item.png"><img src="docs/screenshots/delete-item.png" alt="DELETE 1 - 상품 하나 삭제" width="800"></a>
+
+**DELETE 2 - 상품 여러 개 삭제 (200 OK)**
+
+<a href="docs/screenshots/delete-batch.png"><img src="docs/screenshots/delete-batch.png" alt="DELETE 2 - 상품 여러 개 삭제" width="800"></a>
+
+</details>
+
+### 오류 응답
+
+<details>
+<summary>400, 404, 500, 503 응답 결과</summary>
+
+**400 Bad Request - 잘못된 입력**
+
+<a href="docs/screenshots/error-400.png"><img src="docs/screenshots/error-400.png" alt="400 Bad Request" width="800"></a>
+
+**404 Not Found - 존재하지 않는 상품**
+
+<a href="docs/screenshots/error-404.png"><img src="docs/screenshots/error-404.png" alt="404 Not Found" width="800"></a>
+
+**500 Internal Server Error - 실습용 서버 오류**
+
+<a href="docs/screenshots/error-500.png"><img src="docs/screenshots/error-500.png" alt="500 Internal Server Error" width="800"></a>
+
+**503 Service Unavailable - 실습용 서비스 이용 불가 오류**
+
+<a href="docs/screenshots/error-503.png"><img src="docs/screenshots/error-503.png" alt="503 Service Unavailable" width="800"></a>
+
+</details>
+
+### 요청 로그
+
+<a href="docs/screenshots/middleware.png"><img src="docs/screenshots/middleware.png" alt="요청 메서드, 경로, 상태 코드 및 처리 시간" width="800"></a>
+
+### 자동 테스트
+
+<a href="docs/screenshots/tests.png"><img src="docs/screenshots/tests.png" alt="테스트 7개 통과, 실패 및 건너뛴 테스트 0개" width="800"></a>

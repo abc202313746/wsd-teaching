@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "WSD Backend Assignment - 8 APIs",
-    "description": "과제 공지 기준: HTTP 메서드별 2개 API, 공통 응답 형식, 요청 로그, 200/201/400/404/500/503 검증. 서버를 실행한 후 폴더 순서대로 실행하세요.",
+    "description": "서버를 실행한 뒤 0 - Setup, 1 - Eight APIs, 2 - Error responses 순서로 요청을 보낸다.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -48,7 +48,8 @@
             "header": [
               {
                 "key": "Content-Type",
-                "value": "application/json"
+                "value": "application/json",
+                "type": "text"
               }
             ],
             "url": "{{baseUrl}}/api/v1/items",
@@ -87,7 +88,8 @@
             "header": [
               {
                 "key": "Content-Type",
-                "value": "application/json"
+                "value": "application/json",
+                "type": "text"
               }
             ],
             "url": "{{baseUrl}}/api/v1/items",
@@ -121,15 +123,18 @@
             "header": [
               {
                 "key": "Content-Type",
-                "value": "application/json"
+                "value": "application/json",
+                "type": "text"
               },
               {
                 "key": "X-USER-ID",
-                "value": "student01"
+                "value": "student01",
+                "type": "text"
               },
               {
                 "key": "Authorization",
-                "value": "Bearer demo-token"
+                "value": "Bearer demo-token",
+                "type": "text"
               }
             ],
             "url": "{{baseUrl}}/api/v3/items/with-header",
@@ -201,7 +206,8 @@
             "header": [
               {
                 "key": "Content-Type",
-                "value": "application/json"
+                "value": "application/json",
+                "type": "text"
               }
             ],
             "url": "{{baseUrl}}/api/v1/items/{{itemId}}",
@@ -234,7 +240,8 @@
             "header": [
               {
                 "key": "Content-Type",
-                "value": "application/json"
+                "value": "application/json",
+                "type": "text"
               }
             ],
             "url": "{{baseUrl}}/api/v1/items/{{itemId}}/price",
@@ -310,7 +317,8 @@
             "header": [
               {
                 "key": "Content-Type",
-                "value": "application/json"
+                "value": "application/json",
+                "type": "text"
               }
             ],
             "url": "{{baseUrl}}/api/v1/items",
@@ -362,7 +370,8 @@
             "header": [
               {
                 "key": "X-Demo-Error",
-                "value": "500"
+                "value": "500",
+                "type": "text"
               }
             ],
             "url": "{{baseUrl}}/api/v1/items"
@@ -386,7 +395,8 @@
             "header": [
               {
                 "key": "X-Demo-Error",
-                "value": "503"
+                "value": "503",
+                "type": "text"
               }
             ],
             "url": "{{baseUrl}}/api/v1/items"

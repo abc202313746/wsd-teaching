@@ -1,0 +1,21 @@
+$kind: http-request
+url: "{{baseUrl}}/api/v3/items/with-header"
+method: POST
+headers:
+  Content-Type: application/json
+  X-USER-ID: student01
+  Authorization: ""
+body:
+  type: json
+  content: |-
+    {
+      "name": "Tea",
+      "price": 2000
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("HTTP 201", function () { pm.response.to.have.status(201); });
+      pm.collectionVariables.set("headerItemId", pm.response.json().data.item.id);
+    language: text/javascript
+order: 2000
