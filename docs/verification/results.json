@@ -1,0 +1,451 @@
+﻿{
+    "verifiedAt":  "2026-10-04T23:12:47.2555154+09:00",
+    "baseUrl":  "http://127.0.0.1:18082",
+    "passed":  true,
+    "checkCount":  22,
+    "apiCount":  8,
+    "responseCodes":  [
+                          200,
+                          201,
+                          400,
+                          404,
+                          405,
+                          500,
+                          503
+                      ],
+    "middlewareVerified":  true,
+    "results":  [
+                    {
+                        "label":  "POST 1 - Create item",
+                        "group":  "API",
+                        "method":  "POST",
+                        "path":  "/api/v1/items",
+                        "httpStatus":  201,
+                        "expectedStatus":  201,
+                        "passed":  true,
+                        "requestBody":  "{\"name\":\"Coffee\",\"price\":1000}",
+                        "requestHeaders":  null,
+                        "response":  {
+                                         "status":  "success",
+                                         "data":  {
+                                                      "id":  1,
+                                                      "name":  "Coffee",
+                                                      "price":  1000
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "POST 2 - Create with headers",
+                        "group":  "API",
+                        "method":  "POST",
+                        "path":  "/api/v3/items/with-header",
+                        "httpStatus":  201,
+                        "expectedStatus":  201,
+                        "passed":  true,
+                        "requestBody":  "{\"name\":\"Tea\",\"price\":2000}",
+                        "requestHeaders":  {
+                                               "Authorization":  "Bearer demo-token",
+                                               "X-USER-ID":  "student01"
+                                           },
+                        "response":  {
+                                         "status":  "success",
+                                         "data":  {
+                                                      "item":  {
+                                                                   "id":  2,
+                                                                   "name":  "Tea",
+                                                                   "price":  2000
+                                                               },
+                                                      "userId":  "student01",
+                                                      "authorizationProvided":  true
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "Create fixture",
+                        "group":  "Setup",
+                        "method":  "POST",
+                        "path":  "/api/v1/items",
+                        "httpStatus":  201,
+                        "expectedStatus":  201,
+                        "passed":  true,
+                        "requestBody":  "{\"name\":\"Milk\",\"price\":3000}",
+                        "requestHeaders":  null,
+                        "response":  {
+                                         "status":  "success",
+                                         "data":  {
+                                                      "id":  3,
+                                                      "name":  "Milk",
+                                                      "price":  3000
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "GET 1 - Search and list",
+                        "group":  "API",
+                        "method":  "GET",
+                        "path":  "/api/v1/items?keyword=Coffee\u0026page=0\u0026size=10",
+                        "httpStatus":  200,
+                        "expectedStatus":  200,
+                        "passed":  true,
+                        "requestBody":  "",
+                        "requestHeaders":  null,
+                        "response":  {
+                                         "status":  "success",
+                                         "data":  {
+                                                      "items":  [
+                                                                    {
+                                                                        "id":  1,
+                                                                        "name":  "Coffee",
+                                                                        "price":  1000
+                                                                    }
+                                                                ],
+                                                      "total":  1,
+                                                      "page":  0,
+                                                      "size":  10
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "GET 2 - Read item",
+                        "group":  "API",
+                        "method":  "GET",
+                        "path":  "/api/v1/items/2",
+                        "httpStatus":  200,
+                        "expectedStatus":  200,
+                        "passed":  true,
+                        "requestBody":  "",
+                        "requestHeaders":  null,
+                        "response":  {
+                                         "status":  "success",
+                                         "data":  {
+                                                      "id":  2,
+                                                      "name":  "Tea",
+                                                      "price":  2000
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "PUT 1 - Replace item",
+                        "group":  "API",
+                        "method":  "PUT",
+                        "path":  "/api/v1/items/1",
+                        "httpStatus":  200,
+                        "expectedStatus":  200,
+                        "passed":  true,
+                        "requestBody":  "{\"name\":\"Americano\",\"price\":1800}",
+                        "requestHeaders":  null,
+                        "response":  {
+                                         "status":  "success",
+                                         "data":  {
+                                                      "id":  1,
+                                                      "name":  "Americano",
+                                                      "price":  1800
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "PUT 2 - Replace price",
+                        "group":  "API",
+                        "method":  "PUT",
+                        "path":  "/api/v1/items/1/price",
+                        "httpStatus":  200,
+                        "expectedStatus":  200,
+                        "passed":  true,
+                        "requestBody":  "{\"price\":2200}",
+                        "requestHeaders":  null,
+                        "response":  {
+                                         "status":  "success",
+                                         "data":  {
+                                                      "id":  1,
+                                                      "name":  "Americano",
+                                                      "price":  2200
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "Update persists",
+                        "group":  "Validation",
+                        "method":  "GET",
+                        "path":  "/api/v1/items/1",
+                        "httpStatus":  200,
+                        "expectedStatus":  200,
+                        "passed":  true,
+                        "requestBody":  "",
+                        "requestHeaders":  null,
+                        "response":  {
+                                         "status":  "success",
+                                         "data":  {
+                                                      "id":  1,
+                                                      "name":  "Americano",
+                                                      "price":  2200
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "Failed batch is atomic",
+                        "group":  "Validation",
+                        "method":  "DELETE",
+                        "path":  "/api/v1/items?ids=1,999999",
+                        "httpStatus":  404,
+                        "expectedStatus":  404,
+                        "passed":  true,
+                        "requestBody":  "",
+                        "requestHeaders":  null,
+                        "response":  {
+                                         "status":  "error",
+                                         "data":  {
+                                                      "code":  "ITEM_NOT_FOUND",
+                                                      "message":  "상품을 찾을 수 없습니다: 999999"
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "Existing item survives failed batch",
+                        "group":  "Validation",
+                        "method":  "GET",
+                        "path":  "/api/v1/items/1",
+                        "httpStatus":  200,
+                        "expectedStatus":  200,
+                        "passed":  true,
+                        "requestBody":  "",
+                        "requestHeaders":  null,
+                        "response":  {
+                                         "status":  "success",
+                                         "data":  {
+                                                      "id":  1,
+                                                      "name":  "Americano",
+                                                      "price":  2200
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "DELETE 1 - Delete item",
+                        "group":  "API",
+                        "method":  "DELETE",
+                        "path":  "/api/v1/items/2",
+                        "httpStatus":  200,
+                        "expectedStatus":  200,
+                        "passed":  true,
+                        "requestBody":  "",
+                        "requestHeaders":  null,
+                        "response":  {
+                                         "status":  "success",
+                                         "data":  {
+                                                      "deletedIds":  [
+                                                                         2
+                                                                     ],
+                                                      "deletedCount":  1
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "Deleted item is missing",
+                        "group":  "Validation",
+                        "method":  "GET",
+                        "path":  "/api/v1/items/2",
+                        "httpStatus":  404,
+                        "expectedStatus":  404,
+                        "passed":  true,
+                        "requestBody":  "",
+                        "requestHeaders":  null,
+                        "response":  {
+                                         "status":  "error",
+                                         "data":  {
+                                                      "code":  "ITEM_NOT_FOUND",
+                                                      "message":  "상품을 찾을 수 없습니다: 2"
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "DELETE 2 - Delete selected items",
+                        "group":  "API",
+                        "method":  "DELETE",
+                        "path":  "/api/v1/items?ids=1,3",
+                        "httpStatus":  200,
+                        "expectedStatus":  200,
+                        "passed":  true,
+                        "requestBody":  "",
+                        "requestHeaders":  null,
+                        "response":  {
+                                         "status":  "success",
+                                         "data":  {
+                                                      "deletedIds":  [
+                                                                         1,
+                                                                         3
+                                                                     ],
+                                                      "deletedCount":  2
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "400 - Invalid input",
+                        "group":  "Errors",
+                        "method":  "POST",
+                        "path":  "/api/v1/items",
+                        "httpStatus":  400,
+                        "expectedStatus":  400,
+                        "passed":  true,
+                        "requestBody":  "{\"name\":\" \",\"price\":100}",
+                        "requestHeaders":  null,
+                        "response":  {
+                                         "status":  "error",
+                                         "data":  {
+                                                      "code":  "INVALID_INPUT",
+                                                      "message":  "name은 공백이 아닌 1자부터 100자 사이의 문자열이어야 합니다."
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "400 - Malformed JSON",
+                        "group":  "Validation",
+                        "method":  "POST",
+                        "path":  "/api/v1/items",
+                        "httpStatus":  400,
+                        "expectedStatus":  400,
+                        "passed":  true,
+                        "requestBody":  "{broken",
+                        "requestHeaders":  null,
+                        "response":  {
+                                         "status":  "error",
+                                         "data":  {
+                                                      "code":  "BAD_REQUEST",
+                                                      "message":  "요청 본문과 파라미터 형식을 확인하세요."
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "404 - Missing item",
+                        "group":  "Errors",
+                        "method":  "GET",
+                        "path":  "/api/v1/items/999999",
+                        "httpStatus":  404,
+                        "expectedStatus":  404,
+                        "passed":  true,
+                        "requestBody":  "",
+                        "requestHeaders":  null,
+                        "response":  {
+                                         "status":  "error",
+                                         "data":  {
+                                                      "code":  "ITEM_NOT_FOUND",
+                                                      "message":  "상품을 찾을 수 없습니다: 999999"
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "500 - Demo internal error",
+                        "group":  "Errors",
+                        "method":  "GET",
+                        "path":  "/api/v1/items",
+                        "httpStatus":  500,
+                        "expectedStatus":  500,
+                        "passed":  true,
+                        "requestBody":  "",
+                        "requestHeaders":  {
+                                               "X-Demo-Error":  "500"
+                                           },
+                        "response":  {
+                                         "status":  "error",
+                                         "data":  {
+                                                      "code":  "DEMO_INTERNAL_ERROR",
+                                                      "message":  "실습용으로 서버 내부 오류를 재현했습니다."
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "503 - Demo unavailable",
+                        "group":  "Errors",
+                        "method":  "GET",
+                        "path":  "/api/v1/items",
+                        "httpStatus":  503,
+                        "expectedStatus":  503,
+                        "passed":  true,
+                        "requestBody":  "",
+                        "requestHeaders":  {
+                                               "X-Demo-Error":  "503"
+                                           },
+                        "response":  {
+                                         "status":  "error",
+                                         "data":  {
+                                                      "code":  "DEMO_SERVICE_UNAVAILABLE",
+                                                      "message":  "실습용으로 일시적인 서비스 중단을 재현했습니다."
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "404 - Missing route",
+                        "group":  "Validation",
+                        "method":  "GET",
+                        "path":  "/api/no-such-path",
+                        "httpStatus":  404,
+                        "expectedStatus":  404,
+                        "passed":  true,
+                        "requestBody":  "",
+                        "requestHeaders":  null,
+                        "response":  {
+                                         "status":  "error",
+                                         "data":  {
+                                                      "code":  "NOT_FOUND",
+                                                      "message":  "요청한 경로를 찾을 수 없습니다."
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "405 - Unsupported method",
+                        "group":  "Validation",
+                        "method":  "POST",
+                        "path":  "/api/v1/items/1",
+                        "httpStatus":  405,
+                        "expectedStatus":  405,
+                        "passed":  true,
+                        "requestBody":  "",
+                        "requestHeaders":  null,
+                        "response":  {
+                                         "status":  "error",
+                                         "data":  {
+                                                      "code":  "METHOD_NOT_ALLOWED",
+                                                      "message":  "이 경로에서 지원하지 않는 HTTP 메서드입니다."
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "400 - Missing IDs",
+                        "group":  "Validation",
+                        "method":  "DELETE",
+                        "path":  "/api/v1/items",
+                        "httpStatus":  400,
+                        "expectedStatus":  400,
+                        "passed":  true,
+                        "requestBody":  "",
+                        "requestHeaders":  null,
+                        "response":  {
+                                         "status":  "error",
+                                         "data":  {
+                                                      "code":  "BAD_REQUEST",
+                                                      "message":  "요청 본문과 파라미터 형식을 확인하세요."
+                                                  }
+                                     }
+                    },
+                    {
+                        "label":  "Final store is empty",
+                        "group":  "Validation",
+                        "method":  "GET",
+                        "path":  "/api/v1/items",
+                        "httpStatus":  200,
+                        "expectedStatus":  200,
+                        "passed":  true,
+                        "requestBody":  "",
+                        "requestHeaders":  null,
+                        "response":  {
+                                         "status":  "success",
+                                         "data":  {
+                                                      "items":  [
+
+                                                                ],
+                                                      "total":  0,
+                                                      "page":  0,
+                                                      "size":  10
+                                                  }
+                                     }
+                    }
+                ]
+}

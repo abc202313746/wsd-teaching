@@ -1,0 +1,64 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-10-04T23:12:45.451+09:00  INFO 9340 --- [wsd-teaching] [           main] k.a.j.i.w.WsdTeachingApplication         : Starting WsdTeachingApplication v0.0.1-SNAPSHOT using Java 25.0.4.1 with PID 9340 (C:\Users\isyiw\IdeaProjects\wsd-teaching\build\libs\wsd-teaching-0.0.1-SNAPSHOT.jar started by isyiw in C:\Users\isyiw\IdeaProjects\wsd-teaching)
+2026-10-04T23:12:45.456+09:00  INFO 9340 --- [wsd-teaching] [           main] k.a.j.i.w.WsdTeachingApplication         : No active profile set, falling back to 1 default profile: "default"
+2026-10-04T23:12:46.184+09:00  INFO 9340 --- [wsd-teaching] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 18082 (http)
+2026-10-04T23:12:46.219+09:00  INFO 9340 --- [wsd-teaching] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-04T23:12:46.219+09:00  INFO 9340 --- [wsd-teaching] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-04T23:12:46.236+09:00  INFO 9340 --- [wsd-teaching] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 736 ms
+2026-10-04T23:12:46.496+09:00  INFO 9340 --- [wsd-teaching] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 18082 (http) with context path '/'
+2026-10-04T23:12:46.519+09:00  INFO 9340 --- [wsd-teaching] [           main] k.a.j.i.w.WsdTeachingApplication         : Started WsdTeachingApplication in 1.42 seconds (process running for 1.755)
+2026-10-04T23:12:46.706+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-04T23:12:46.707+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-04T23:12:46.707+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2026-10-04T23:12:46.715+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-2] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: POST /api/v1/items
+2026-10-04T23:12:46.791+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-2] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: POST /api/v1/items, status=201, durationMs=75
+2026-10-04T23:12:46.862+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-3] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: POST /api/v3/items/with-header
+2026-10-04T23:12:46.868+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-3] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: POST /api/v3/items/with-header, status=201, durationMs=6
+2026-10-04T23:12:46.872+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-1] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: POST /api/v1/items
+2026-10-04T23:12:46.873+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-1] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: POST /api/v1/items, status=201, durationMs=1
+2026-10-04T23:12:46.881+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-5] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: GET /api/v1/items
+2026-10-04T23:12:46.891+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-5] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: GET /api/v1/items, status=200, durationMs=9
+2026-10-04T23:12:46.900+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-4] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: GET /api/v1/items/2
+2026-10-04T23:12:46.903+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-4] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: GET /api/v1/items/2, status=200, durationMs=2
+2026-10-04T23:12:46.908+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-6] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: PUT /api/v1/items/1
+2026-10-04T23:12:46.912+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-6] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: PUT /api/v1/items/1, status=200, durationMs=2
+2026-10-04T23:12:46.918+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-7] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: PUT /api/v1/items/1/price
+2026-10-04T23:12:46.922+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-7] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: PUT /api/v1/items/1/price, status=200, durationMs=4
+2026-10-04T23:12:46.926+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-8] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: GET /api/v1/items/1
+2026-10-04T23:12:46.928+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-8] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: GET /api/v1/items/1, status=200, durationMs=1
+2026-10-04T23:12:46.932+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-9] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: DELETE /api/v1/items
+2026-10-04T23:12:46.943+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-9] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: DELETE /api/v1/items, status=404, durationMs=10
+2026-10-04T23:12:46.947+09:00  INFO 9340 --- [wsd-teaching] [1-18082-exec-10] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: GET /api/v1/items/1
+2026-10-04T23:12:46.948+09:00  INFO 9340 --- [wsd-teaching] [1-18082-exec-10] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: GET /api/v1/items/1, status=200, durationMs=0
+2026-10-04T23:12:46.952+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-2] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: DELETE /api/v1/items/2
+2026-10-04T23:12:46.955+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-2] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: DELETE /api/v1/items/2, status=200, durationMs=2
+2026-10-04T23:12:46.960+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-3] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: GET /api/v1/items/2
+2026-10-04T23:12:46.965+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-3] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: GET /api/v1/items/2, status=404, durationMs=5
+2026-10-04T23:12:46.969+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-1] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: DELETE /api/v1/items
+2026-10-04T23:12:46.971+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-1] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: DELETE /api/v1/items, status=200, durationMs=1
+2026-10-04T23:12:46.975+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-5] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: POST /api/v1/items
+2026-10-04T23:12:46.976+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-5] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: POST /api/v1/items, status=400, durationMs=1
+2026-10-04T23:12:46.981+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-4] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: POST /api/v1/items
+2026-10-04T23:12:46.988+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-4] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: POST /api/v1/items, status=400, durationMs=6
+2026-10-04T23:12:46.991+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-6] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: GET /api/v1/items/999999
+2026-10-04T23:12:46.993+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-6] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: GET /api/v1/items/999999, status=404, durationMs=1
+2026-10-04T23:12:46.996+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-7] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: GET /api/v1/items
+2026-10-04T23:12:46.997+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-7] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: GET /api/v1/items, status=500, durationMs=1
+2026-10-04T23:12:47.000+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-8] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: GET /api/v1/items
+2026-10-04T23:12:47.002+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-8] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: GET /api/v1/items, status=503, durationMs=1
+2026-10-04T23:12:47.012+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-9] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: GET /api/no-such-path
+2026-10-04T23:12:47.014+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-9] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: GET /api/no-such-path, status=404, durationMs=2
+2026-10-04T23:12:47.019+09:00  WARN 9340 --- [wsd-teaching] [1-18082-exec-10] o.s.web.servlet.PageNotFound             : Request method 'POST' is not supported
+2026-10-04T23:12:47.022+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-2] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: DELETE /api/v1/items
+2026-10-04T23:12:47.026+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-2] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: DELETE /api/v1/items, status=400, durationMs=3
+2026-10-04T23:12:47.032+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-3] k.a.j.i.w.config.LoggingInterceptor      : 요청 시작: GET /api/v1/items
+2026-10-04T23:12:47.033+09:00  INFO 9340 --- [wsd-teaching] [.1-18082-exec-3] k.a.j.i.w.config.LoggingInterceptor      : 요청 완료: GET /api/v1/items, status=200, durationMs=1
