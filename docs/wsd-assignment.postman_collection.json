@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "WSD Backend Assignment - 8 APIs",
-    "description": "서버를 실행한 뒤 0 - Setup, 1 - Eight APIs, 2 - Error responses 순서로 요청을 보낸다.",
+    "description": "서버를 재시작한 뒤 0 - Setup, 1 - Eight APIs, 2 - Error responses 순서로 요청을 보낸다. 수정과 삭제 후에는 확인용 GET 요청으로 저장된 결과를 확인한다.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -166,7 +166,8 @@
           "request": {
             "method": "GET",
             "header": [],
-            "url": "{{baseUrl}}/api/v1/items?keyword=Coffee&page=0&size=10"
+            "url": "{{baseUrl}}/api/v1/items?page=0&size=10",
+            "description": "검색 조건 없이 전체 목록을 조회한다. 검색을 확인할 때는 Params에 keyword를 추가한다."
           },
           "event": [
             {
@@ -234,6 +235,32 @@
           ]
         },
         {
+          "name": "Check 1 - Read after full update",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/v1/items/{{itemId}}",
+            "description": "전체 수정 후 상품을 다시 조회해서 이름과 가격이 저장됐는지 확인한다."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Updated values are stored\", function () {",
+                  "    const item = pm.response.json().data;",
+                  "    pm.expect(item.id).to.eql(Number(pm.collectionVariables.get(\"itemId\")));",
+                  "    pm.expect(item.name).to.eql(\"Americano\");",
+                  "    pm.expect(item.price).to.eql(1800);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
           "name": "PUT 2 - Replace price",
           "request": {
             "method": "PUT",
@@ -268,6 +295,32 @@
           ]
         },
         {
+          "name": "Check 2 - Read after price update",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/v1/items/{{itemId}}",
+            "description": "가격 수정 후 상품을 다시 조회해서 가격과 기존 이름을 확인한다."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Price is stored and name is retained\", function () {",
+                  "    const item = pm.response.json().data;",
+                  "    pm.expect(item.id).to.eql(Number(pm.collectionVariables.get(\"itemId\")));",
+                  "    pm.expect(item.name).to.eql(\"Americano\");",
+                  "    pm.expect(item.price).to.eql(2200);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
           "name": "DELETE 1 - Delete item",
           "request": {
             "method": "DELETE",
@@ -281,6 +334,29 @@
                 "type": "text/javascript",
                 "exec": [
                   "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Check 3 - Read deleted item",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/v1/items/{{headerItemId}}",
+            "description": "삭제한 상품을 다시 조회해서 404 응답을 확인한다."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 404\", function () { pm.response.to.have.status(404); });",
+                  "pm.test(\"Deleted item is not found\", function () {",
+                  "    pm.expect(pm.response.json().data.code).to.eql(\"ITEM_NOT_FOUND\");",
+                  "});"
                 ]
               }
             }
@@ -304,8 +380,34 @@
               }
             }
           ]
+        },
+        {
+          "name": "Check 4 - List after batch delete",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/v1/items?page=0&size=10",
+            "description": "서버를 재시작하고 준비 요청부터 순서대로 진행한 뒤, 마지막 목록이 비었는지 확인한다."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"HTTP 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"All practice items are deleted\", function () {",
+                  "    const page = pm.response.json().data;",
+                  "    pm.expect(page.total).to.eql(0);",
+                  "    pm.expect(page.items).to.eql([]);",
+                  "});"
+                ]
+              }
+            }
+          ]
         }
-      ]
+      ],
+      "description": "구현한 API는 8개다. 수정과 삭제 후 결과를 다시 확인하는 GET 요청 4개를 포함해 이 폴더의 요청은 총 12개다."
     },
     {
       "name": "2 - Error responses",

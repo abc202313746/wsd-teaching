@@ -32,17 +32,17 @@ public class ItemController {
     }
 
     @GetMapping
-    public ApiResponse<ItemPage> getItems(
+    public ResponseEntity<ApiResponse<ItemPage>> getItems(
             @RequestParam(required = false) String keyword,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return ApiResponse.success(itemService.list(keyword, page, size));
+        return ResponseEntity.ok(ApiResponse.success(itemService.list(keyword, page, size)));
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<ItemDto> getItem(@PathVariable long id) {
-        return ApiResponse.success(itemService.get(id));
+    public ResponseEntity<ApiResponse<ItemDto>> getItem(@PathVariable long id) {
+        return ResponseEntity.ok(ApiResponse.success(itemService.get(id)));
     }
 
     @PostMapping
@@ -53,28 +53,28 @@ public class ItemController {
     }
 
     @PutMapping("/{id}")
-    public ApiResponse<ItemDto> updateItem(
+    public ResponseEntity<ApiResponse<ItemDto>> updateItem(
             @PathVariable long id,
             @RequestBody ItemUpdateRequest request
     ) {
-        return ApiResponse.success(itemService.replace(id, request));
+        return ResponseEntity.ok(ApiResponse.success(itemService.replace(id, request)));
     }
 
     @PutMapping("/{id}/price")
-    public ApiResponse<ItemDto> updatePrice(
+    public ResponseEntity<ApiResponse<ItemDto>> updatePrice(
             @PathVariable long id,
             @RequestBody ItemPriceRequest request
     ) {
-        return ApiResponse.success(itemService.replacePrice(id, request.price()));
+        return ResponseEntity.ok(ApiResponse.success(itemService.replacePrice(id, request.price())));
     }
 
     @DeleteMapping("/{id}")
-    public ApiResponse<DeleteResult> deleteItem(@PathVariable long id) {
-        return ApiResponse.success(itemService.delete(id));
+    public ResponseEntity<ApiResponse<DeleteResult>> deleteItem(@PathVariable long id) {
+        return ResponseEntity.ok(ApiResponse.success(itemService.delete(id)));
     }
 
     @DeleteMapping
-    public ApiResponse<DeleteResult> deleteItems(@RequestParam List<Long> ids) {
-        return ApiResponse.success(itemService.deleteBatch(ids));
+    public ResponseEntity<ApiResponse<DeleteResult>> deleteItems(@RequestParam List<Long> ids) {
+        return ResponseEntity.ok(ApiResponse.success(itemService.deleteBatch(ids)));
     }
 }
